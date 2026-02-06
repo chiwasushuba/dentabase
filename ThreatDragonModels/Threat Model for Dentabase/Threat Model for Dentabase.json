@@ -155,8 +155,8 @@
                 "text": "Login\nAuthentication"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -253,19 +253,39 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "83754f93-5a18-4c86-ad27-e2158477687e",
+                  "title": "Auth Flooding ",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Availability",
+                  "description": "Without rate-limiting or account lockout mechanisms on the \"Login Authentication\" process, an attacker can automate thousands of login attempts to guess user passwords.",
+                  "mitigation": "Implement account lockouts, rate-limiting on the login endpoint, and Multi-Factor Authentication (MFA).",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 0,
+                "integrity": 0,
+                "availability": 2
+              }
             }
           },
           {
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -286,13 +306,32 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": []
+              "threats": [
+                {
+                  "id": "ec9e2674-cf7f-4119-97ee-735fa3259b2e",
+                  "title": "Credential Interception",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Confidentiality",
+                  "description": "If the login credentials are sent over an unencrypted channel (HTTP), an attacker on the same network or within the ISP path could perform a Man-in-the-Middle (MitM) attack to steal the username and password",
+                  "mitigation": "Enforce TLS/HTTPS across the entire application and use HSTS (HTTP Strict Transport Security) headers.",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "confidentiality": 1,
+                "integrity": 0,
+                "availability": 0
+              }
             },
             "labels": [
               "Logs In Details"
@@ -310,6 +349,10 @@
               {
                 "x": 550,
                 "y": 130
+              },
+              {
+                "x": 550,
+                "y": 150
               }
             ]
           },
@@ -515,7 +558,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -536,13 +580,32 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": []
+              "threats": [
+                {
+                  "id": "fee5d41b-d377-4030-b44e-df7decab0c3a",
+                  "title": "Injection in Client Search",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Integrity",
+                  "description": "When the \"Authenticated User\" passes search details (like a Name) to the retrieval process, an attacker might try to inject malicious SQL commands to bypass security or modify the database",
+                  "mitigation": "Use Parameterized Queries or an ORM for all database interactions and implement strict input validation",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                }
+              ],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "confidentiality": 0,
+                "integrity": 1,
+                "availability": 0
+              }
             },
             "labels": [
               "Authenticated User Tries to Retrieve Client Data"
@@ -709,8 +772,16 @@
             },
             "vertices": [
               {
+                "x": 1170,
+                "y": 380
+              },
+              {
                 "x": 1240,
                 "y": 340
+              },
+              {
+                "x": 1220,
+                "y": 320
               }
             ]
           },
@@ -728,11 +799,13 @@
                 "text": "User\nDetails Schema"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -829,13 +902,32 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "c88a046c-8925-43c4-89e9-6688a8fb3b94",
+                  "title": "Weak Hashing of User Credentials",
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Confidentiality",
+                  "description": "If the \"User Details Schema\" uses a weak hashing algorithm (like MD5 or SHA-1) or lacks a unique Salt, an attacker who gains access to the database could easily reverse the hashes.",
+                  "mitigation": "Return a generic \"Invalid username or password\" message for all login failures.",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 1,
+                "integrity": 0,
+                "availability": 0
+              }
             }
           },
           {
@@ -1086,11 +1178,13 @@
             },
             "attrs": {
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1187,13 +1281,32 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "11826efa-fa3b-4fd7-b733-ca6af994de13",
+                  "title": "Exhaustion via Search Overload",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Availability",
+                  "description": "Complex or wildcard search queries could overwhelm the \"Client Data Retrieval\" process, locking the database and preventing other users from accessing data.",
+                  "mitigation": "Implement pagination, set maximum limits on records returned, and use database indexing for search fields.",
+                  "modelType": "CIA",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "confidentiality": 0,
+                "integrity": 0,
+                "availability": 1
+              }
             }
           }
         ]
@@ -1201,6 +1314,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 1
+    "threatTop": 10
   }
 }
